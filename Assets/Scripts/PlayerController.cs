@@ -9,15 +9,31 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float gravity;
+    [SerializeField] private GameObject losePanel;
 
 
-    private int lineToMove = 1;
+    private int lineToMove;
     public float lineDistance = 4;
 
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        if (transform.position.x == -2)
+        {
+            lineToMove = 0;
+        }
+        else if (transform.position.x == 0)
+        {
+            lineToMove = 1;
+        }
+        else
+        {
+            lineToMove = 2;
+        }
+
         controller = GetComponent<CharacterController>();
+
+        losePanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -41,6 +57,7 @@ public class PlayerController : MonoBehaviour
         }
 
         Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
+
         if (lineToMove == 0)
         {
             targetPosition += Vector3.left * lineDistance;
@@ -50,16 +67,31 @@ public class PlayerController : MonoBehaviour
             targetPosition += Vector3.right * lineDistance;
         }
 
-        transform.position = targetPosition;
+        //transform.position = targetPosition;
+        if (transform.position == targetPosition)
+        {
+            return;
+        }
+        Vector3 diff = targetPosition - transform.position;
+        Vector3 moveDir = diff.normalized * 25 * Time.deltaTime;
+        if (moveDir.sqrMagnitude < diff.sqrMagnitude)
+        {
+            controller.Move(moveDir);
+        }
+        else
+        {
+            controller.Move(diff);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Obstacle")
-        {
-            Debug.Log(other);
+        {   
+            losePanel.SetActive(true);
+            Time.timeScale = 0;
+            
         }
-        //Destroy(other.gameObject);
     }
 
     private void Jump()
@@ -71,6 +103,7 @@ public class PlayerController : MonoBehaviour
     {
         dir.z = speed;
         dir.y += gravity * Time.fixedDeltaTime;
+        controller.center = new Vector3();
         controller.Move(dir * Time.fixedDeltaTime);
     }
 }

@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    private CharacterController controller;
-    private Vector3 dir;
-    [SerializeField] private int speed = -2;
-
-    void Start()
-    {
-        controller = GetComponent<CharacterController>();
-    }
+    [SerializeField] private float speed;
 
     void FixedUpdate()
     {
-        dir.z = speed;
-        controller.Move(dir * Time.fixedDeltaTime);
+        Vector3 vector = new Vector3(transform.position.x, transform.position.y, transform.position.z -1);
+        transform.position += Vector3.back * speed * Time.deltaTime;
     }
+    
 }

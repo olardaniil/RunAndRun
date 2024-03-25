@@ -12,14 +12,14 @@ public class RoadGenerator : MonoBehaviour
     private Transform camera;
     public float cameraDistance;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        camera = Camera.main.transform; // ссылка на об.MainCamera
+        camera = Camera.main.transform; 
         lastSpawnZ = -10;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (camera.position.z + cameraDistance > lastSpawnZ)
