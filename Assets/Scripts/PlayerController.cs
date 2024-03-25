@@ -24,7 +24,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (SwipeController.swipeRight && lineToMove < 2)
-        {
+        {   
+            Debug.Log(lineToMove);
             lineToMove++;
         }
 
@@ -50,6 +51,15 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.position = targetPosition;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Obstacle")
+        {
+            Debug.Log(other);
+        }
+        //Destroy(other.gameObject);
     }
 
     private void Jump()

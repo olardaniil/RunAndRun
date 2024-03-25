@@ -16,7 +16,7 @@ public class RoadGenerator : MonoBehaviour
     void Start()
     {
         camera = Camera.main.transform; // ссылка на об.MainCamera
-        lastSpawnZ = 17;
+        lastSpawnZ = -10;
     }
 
     // Update is called once per frame
