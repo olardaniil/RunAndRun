@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
 
         losePanel.SetActive(false);
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
