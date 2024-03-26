@@ -89,8 +89,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Obstacle")
         {   
-            losePanel.SetActive(true);
-            Time.timeScale = 0;
+           losePanel.SetActive(true);
+           Time.timeScale = 0;
             
         }
     }
